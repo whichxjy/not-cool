@@ -93,51 +93,62 @@ function BFS(start, goal)
                 and not is_wall(cell.x, cell.y))
     end
 
+    if not is_free(start) then
+        return false
+    end
+
     local queue = create_queue()
 
+    table.insert(visited, start)
     queue:push(start)
     
     while not queue:is_empty() do
         -- Get current cell
         local curr = queue:pop()
 
-        if is_free(curr) then
-            -- Check if it's the goal
-            if equal_pos(curr, goal) then
-                goal.parent = curr.parent
-                return true
-            end
+        if equal_pos(curr, goal) then
+            goal.parent = curr.parent
+            return true
+        end
 
-            -- Visit the current cell
-            table.insert(visited, curr)
-
-            -- Get the four adjacents to the current cell
-            local up = {
-                x = curr.x,
-                y = curr.y - 1,
-                parent = curr
-            }
+        -- Get the four adjacents to the current cell
+        local up = {
+            x = curr.x,
+            y = curr.y - 1,
+            parent = curr
+        }
+        if is_free(up) then
+            table.insert(visited, up)
             queue:push(up)
+        end
 
-            local down = {
-                x = curr.x,
-                y = curr.y + 1,
-                parent = curr
-            }
+        local down = {
+            x = curr.x,
+            y = curr.y + 1,
+            parent = curr
+        }
+        if is_free(down) then
+            table.insert(visited, down)
             queue:push(down)
+        end
 
-            local left = {
-                x = curr.x - 1,
-                y = curr.y,
-                parent = curr
-            }
+        local left = {
+            x = curr.x - 1,
+            y = curr.y,
+            parent = curr
+        }
+        if is_free(left) then
+            table.insert(visited, left)
             queue:push(left)
+        end
 
-            local right = {
-                x = curr.x + 1,
-                y = curr.y,
-                parent = curr
-            }
+        local right = {
+            x = curr.x + 1,
+            y = curr.y,
+            parent = curr
+        }
+        if is_free(right) then
+            table.insert(visited, right)
             queue:push(right)
         end
     end
