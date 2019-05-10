@@ -73,14 +73,14 @@ function IDDFS(start, goal)
 
     -- Depth-Limited Search
     local function DLS(curr, limit)
+        if (limit <= 0) then
+            return
+        end
+
         -- Check if it's the goal
         if equal_pos(curr, goal) then
             goal.parent = curr.parent
             found = true
-            return
-        end
-
-        if (limit <= 0) then
             return
         end
 
