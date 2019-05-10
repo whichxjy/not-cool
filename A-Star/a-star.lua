@@ -122,6 +122,11 @@ function create_priority_queue()
     return queue
 end
 
+-- Are these two cells in the same position?
+function equal_pos(lhs, rhs)
+    return (lhs.x == rhs.x and lhs.y == rhs.y)
+end
+
 -- Check if it's the wall
 function is_wall(x, y)
     return mget(x, y) == WALL
@@ -190,7 +195,7 @@ function AStarSearch(start, goal)
         maze[curr.x][curr.y].closed = true
 
         -- Check if it's the goal
-        if curr.x == goal.x and curr.y == goal.y then
+        if equal_pos(curr, goal) then
             return true
         end
 
