@@ -36,7 +36,7 @@ ctrl = goal
 -- Create Priority Queue
 function create_priority_queue()
     local queue = {
-        heap = {},
+        heap = {}
     }
 
     function queue:push(item)
